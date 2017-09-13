@@ -176,14 +176,14 @@ sub _load {
         my @try_plugins = @plugins;
 
         if ( $use_ext_lut ) {
-            $filename =~ m{\.($extension_re)\z};
+            $filename =~ m{\.($extension_re)\z}i;
 
             if ( !$1 ) {
                 $filename =~ m{\.([^.]+)\z};
                 croak "There are no loaders available for .${1} files";
             }
 
-            @try_plugins = @{ $extension_lut{ $1 } };
+            @try_plugins = @{ $extension_lut{ lc $1 } };
         }
 
         # not using use_ext means we try all plugins anyway, so we'll
